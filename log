@@ -98,3 +98,14 @@ c:\users\vicen\onedrive\escritorio\progra\mingw\include\stdlib.h:487:39: note: e
                                        ^~~~
 cc1.exe: all warnings being treated as errors
 6da4338
+Thu, Apr 17, 2025  5:31:17 PM: 
+ hashmap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+Compilation failed
+In file included from test.c:4:0:
+hashmap.c: In function 'eraseMap':
+hashmap.c:100:27: error: initialization from incompatible pointer type [-Werror=incompatible-pointer-types]
+     Pair** deleteBucket = searchMap(map, key);
+                           ^~~~~~~~~
+cc1.exe: all warnings being treated as errors
+4ecbf64
