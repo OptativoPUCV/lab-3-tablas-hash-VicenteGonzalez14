@@ -43,7 +43,7 @@ void insertMap(HashMap * map, char * key, void * value) {
     long indice = hash(key, map->capacity);
     long inicial = indice; 
     Pair *newPair = createPair(key, value);
-    while(map->buckets[indice] != -1 && map->buckets[indice]->key != -1 ){
+    while(map->buckets[indice] != NULL && map->buckets[indice]->key != NULL ){
 
         if (strcmp(map->buckets[indice]->key, key) == 0) {
             free(newPair->key);  // Liberar la memoria de la clave
