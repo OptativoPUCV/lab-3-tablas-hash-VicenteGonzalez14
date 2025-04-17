@@ -46,22 +46,20 @@ void insertMap(HashMap * map, char * key, void * value) {
     while(map->buckets[indice] != NULL && map->buckets[indice]->key != NULL ){
 
         if (strcmp(map->buckets[indice]->key, key) == 0) {
-            free(newPair->key);  // Liberar la memoria de la clave
-            free(newPair);        // Liberar la memoria del par
+            free(newPair->key);  
+            free(newPair);        
             return;  // No insertar claves repetidas
         }
         indice = (indice + 1) % map->capacity;
         
-        // Si volvemos al índice inicial, hemos recorrido toda la tabla
+        
         if (indice == inicial) {
             printf("El mapa hash está lleno.\n");
             return;  // El mapa está lleno
         }
     }
     map->buckets[indice] = newPair;
-    map->size++;  // Incrementar el tamaño
-
-    // Actualizar el índice del último dato accedido
+    map->size++;  
     map->current = indice;
 }
 
@@ -87,8 +85,8 @@ void enlarge(HashMap * map) {
 
 HashMap * createMap(long capacity) {
     HashMap *map = (HashMap*)malloc(sizeof(HashMap));
-    map->capacity = capacity;  // Establecer la capacidad inicial
-    map->size = 0;  // Al principio no hay elementos
+    map->capacity = capacity;  
+    map->size = 0; 
     map->current = -1;
 
     map->buckets = (Pair**)malloc(sizeof(Pair*) * map->capacity);
@@ -99,8 +97,8 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap * map,  char * key) {    
-
-
+    long indice = searchMap(map, key);
+    free(indice);
 }
 
 Pair * searchMap(HashMap * map,  char * key) {  
