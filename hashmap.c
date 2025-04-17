@@ -102,21 +102,27 @@ void eraseMap(HashMap * map,  char * key) {
         long indice = map->current;
         free(deleteBucket->key);
         free(deleteBucket);
-        map->buckets[indice] = NULL;  // Eliminar el par de los buckets
+        map->buckets[indice] = NULL;  
         map->size--;
 
-        indice = (indice + 1) % map->capacity;  // Avanzar al siguiente índice
+        indice = (indice + 1) % map->capacity; 
         while (map->buckets[indice] != NULL) {
             Pair *movedPair = map->buckets[indice];
             map->buckets[indice] = NULL;
-            map->size--;  // Reducir el tamaño, ya que estamos moviendo el par
+            map->size--; 
 
-            // Insertar el par en la posición correcta
-            insertMap(map, movedPair->key, movedPair->value);
-            free(movedPair->key);  // Liberar la clave
-            free(movedPair);  // Liberar el par
-            indice = (indice + 1) % map->capacity;
+            // Reinsertar el par en la posición correcta
+            unsigned long newIndex = hash(movedPair->key, map->capacity);
+            if (newIndex != indice) {
+
+                map->buckets[newIndex] = movedPair;
+            } else {
+                map->buckets[newIndex] = movedPair;
+            }
+            indice = (indice + 1) % map->capacity;  
         }
+        // Actualizar el índice de último elemento accedido
+        map->current = (map->current - 1) % map->capacity;
     }
  }
 
