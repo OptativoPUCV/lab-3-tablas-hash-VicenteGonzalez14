@@ -108,6 +108,7 @@ Pair * searchMap(HashMap * map,  char * key) {
     long inicial = indice; 
     while(map->buckets[indice] != NULL ){
         if (map->buckets[indice]->key != NULL && strcmp(map->buckets[indice]->key, key) == 0) {
+            map->current = indice;
             return map->buckets[indice];  // Devolver el par encontrado
         }
         indice = (indice + 1) % map->capacity;
