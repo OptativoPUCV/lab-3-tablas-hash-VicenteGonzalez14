@@ -66,6 +66,20 @@ void insertMap(HashMap * map, char * key, void * value) {
 }
 
 void enlarge(HashMap * map) {
+    Pair** oldArray = map->buckets;
+    long oldCapacity = map->capacity;
+    map->capacity *= 2;
+    map->buckets = (Pair**)calloc(map->capacity, sizeof(Pair**)); 
+    map->size = 0;
+
+    for(int i = 0; i < oldCapacity; i++){
+        if(oldArray[i] != NULL){
+            insertMap(map, oldArray[i]->key, oldArray[i]->value);
+            free(oldArray[i]);
+        }
+    }
+    free(oldArray);
+
     enlarge_called = 1; //no borrar (testing purposes)
 
 }
@@ -96,7 +110,7 @@ Pair * searchMap(HashMap * map,  char * key) {
         indice = (indice + 1) % map->capacity;
         if(indice == inicial) return NULL;
     }
-    return indice;
+    return NULL;
 }
 
 Pair * firstMap(HashMap * map) {
