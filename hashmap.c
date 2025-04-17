@@ -106,11 +106,15 @@ void eraseMap(HashMap * map,  char * key) {
 Pair * searchMap(HashMap * map,  char * key) {  
     long indice = hash(key, map->capacity); 
     long inicial = indice; 
-    while(map->buckets[indice] != NULL && map->buckets[indice]->key != NULL ){
+    while(map->buckets[indice] != NULL ){
+        if (map->buckets[indice]->key != NULL && strcmp(map->buckets[indice]->key, key) == 0) {
+            return map->buckets[indice];  // Devolver el par encontrado
+        }
         indice = (indice + 1) % map->capacity;
+
         if(indice == inicial) return NULL;
     }
-    return indice;
+    return NULL;
 }
 
 Pair * firstMap(HashMap * map) {
