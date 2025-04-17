@@ -58,6 +58,11 @@ void insertMap(HashMap * map, char * key, void * value) {
             return;  // El mapa está lleno
         }
     }
+    map->buckets[indice] = newPair;
+    map->size++;  // Incrementar el tamaño
+
+    // Actualizar el índice del último dato accedido
+    map->current = indice;
 }
 
 void enlarge(HashMap * map) {
