@@ -109,3 +109,9 @@ hashmap.c:100:27: error: initialization from incompatible pointer type [-Werror=
                            ^~~~~~~~~
 cc1.exe: all warnings being treated as errors
 4ecbf64
+Thu, Apr 17, 2025  5:37:18 PM: 
+ hashmap.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+ tests:  9|2
+total_score: 50/70
+c9ac2c9

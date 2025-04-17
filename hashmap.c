@@ -97,8 +97,14 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap * map,  char * key) {    
-    Pair** deleteBucket = searchMap(map, key);
-    free(deleteBucket);
+    Pair *deleteBucket = searchMap(map, key);
+    if (deleteBucket != NULL) {
+        long indice = map->current;
+        free(deleteBucket->key);
+        free(deleteBucket);
+        map->buckets[indice] = NULL;  // Eliminar el par de los buckets
+        map->size--;
+    }
 }
 
 Pair * searchMap(HashMap * map,  char * key) {  
