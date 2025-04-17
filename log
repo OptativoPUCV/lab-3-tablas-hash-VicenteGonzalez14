@@ -57,3 +57,14 @@ Thu, Apr 17, 2025  5:08:55 PM:
  tests:  6|3
 total_score: 40/70
 443c6db
+Thu, Apr 17, 2025  5:22:58 PM: 
+ hashmap.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+Compilation failed
+In file included from test.c:4:0:
+hashmap.c: In function 'searchMap':
+hashmap.c:113:12: error: return makes pointer from integer without a cast [-Werror=int-conversion]
+     return indice;
+            ^~~~~~
+cc1.exe: all warnings being treated as errors
+f65ac3b

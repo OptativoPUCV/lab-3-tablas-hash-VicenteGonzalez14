@@ -66,19 +66,19 @@ void insertMap(HashMap * map, char * key, void * value) {
 }
 
 void enlarge(HashMap * map) {
-    Pair** oldArray = map->buckets;
+    Pair** oldBuckets = map->buckets;
     long oldCapacity = map->capacity;
     map->capacity *= 2;
     map->buckets = (Pair**)calloc(map->capacity, sizeof(Pair**)); 
     map->size = 0;
 
     for(int i = 0; i < oldCapacity; i++){
-        if(oldArray[i] != NULL){
-            insertMap(map, oldArray[i]->key, oldArray[i]->value);
-            free(oldArray[i]);
+        if(oldBuckets[i] != NULL){
+            insertMap(map, oldBuckets[i]->key, oldBuckets[i]->value);
+            free(oldBuckets[i]);
         }
     }
-    free(oldArray);
+    free(oldBuckets);
 
     enlarge_called = 1; //no borrar (testing purposes)
 
@@ -92,7 +92,7 @@ HashMap * createMap(long capacity) {
     map->current = -1;
 
     map->buckets = (Pair**)malloc(sizeof(Pair*) * map->capacity);
-    for (long i = 0; i < map->capacity; i++) {
+    for (int i = 0; i < map->capacity; i++) {
         map->buckets[i] = NULL;
     }
     return map; 
@@ -104,13 +104,13 @@ void eraseMap(HashMap * map,  char * key) {
 }
 
 Pair * searchMap(HashMap * map,  char * key) {  
-    long indice = hash(key, map->capacity);
+    long indice = hash(key, map->capacity); 
     long inicial = indice; 
     while(map->buckets[indice] != NULL && map->buckets[indice]->key != NULL ){
         indice = (indice + 1) % map->capacity;
         if(indice == inicial) return NULL;
     }
-    return NULL;
+    return indice;
 }
 
 Pair * firstMap(HashMap * map) {
