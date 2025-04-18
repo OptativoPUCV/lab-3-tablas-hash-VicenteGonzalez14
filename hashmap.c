@@ -96,35 +96,20 @@ HashMap * createMap(long capacity) {
     return map; 
 }
 
-void eraseMap(HashMap * map,  char * key) {    
+void eraseMap(HashMap *map, char *key) {
+    // Buscar el par que corresponde a la clave 'key'
     Pair *deleteBucket = searchMap(map, key);
+    
     if (deleteBucket != NULL) {
-        long indice = map->current;
-        free(deleteBucket->key);
-        free(deleteBucket);
-        map->buckets[indice] = NULL;  
-        map->size--;
-
-        indice = (indice + 1) % map->capacity; 
-        while (map->buckets[indice] != NULL) {
-            Pair *movedPair = map->buckets[indice];
-            map->buckets[indice] = NULL;
-            map->size--; 
-
-            // Reinsertar el par en la posición correcta
-            unsigned long newIndex = hash(movedPair->key, map->capacity);
-            if (newIndex != indice) {
-
-                map->buckets[newIndex] = movedPair;
-            } else {
-                map->buckets[newIndex] = movedPair;
-            }
-            indice = (indice + 1) % map->capacity;  
+    
+        deleteBucket->key = NULL;
+        map->size--;       
+        
+        if (map->current == map->capacity - 1) {
+            map->current = -1;  // O asignar el índice de otro par válido 
         }
-        // Actualizar el índice de último elemento accedido
-        map->current = (map->current - 1) % map->capacity;
     }
- }
+}
 
 Pair * searchMap(HashMap * map,  char * key) {  
     long indice = hash(key, map->capacity); 
